@@ -40,7 +40,7 @@ Mention the count each time:
 
 4. After the fifth item and its follow-up response are collected: 
 Say only:
-“Thank you for sharing all these details.”
+“Great! Thank you for sharing all these details.”
 
 🚫 Strict Rules (Must Follow)
 Never ask more than one question per item.
