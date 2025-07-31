@@ -105,7 +105,7 @@ def run():
         if any(LIKE_END in m["content"] for m in st.session_state.messages if m["role"] == "assistant"):
             st.session_state.messages_likes = st.session_state.messages.copy()
             st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/dislikes.txt")}]
-            st.session_state.chat_history.append(("🤖", "Now let’s move on to things you dislike."))
+            st.session_state.chat_history.append(("🤖", "Now let’s move on to things you dislike. Ready?"))
             st.session_state.interview_phase = "dislikes"
             st.rerun()
 
@@ -119,7 +119,7 @@ def run():
         if st.button("다음 주제로"):
             st.session_state.interview_phase = "weekly"
             st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/weekly.txt")}]
-            st.session_state.chat_history.append(("🤖", "Great! Let’s talk about your weekly activities."))
+            st.session_state.chat_history.append(("🤖", "Great! Let’s talk about your weekly activities. Good to go?"))
             st.rerun()
 
     elif st.session_state.interview_phase == "weekly":
