@@ -23,8 +23,9 @@ def run():
 
     # 채팅 출력
     for msg in st.session_state.messages:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
+        if msg["role"] != "system":  # 시스템 메시지는 출력하지 않음
+            with st.chat_message(msg["role"]):
+                st.markdown(msg["content"])
 
     # 사용자 입력
     if user_input := st.chat_input("메시지를 입력해주세요."):
