@@ -39,7 +39,7 @@ def run():
                 st.markdown(msg)
             time.sleep(0.3)
 
-        st.session_state.messages.append({"role": "system", "content": load_prompt("prompts/preferences.txt")})
+        st.session_state.messages.append({"role": "system", "content": load_prompt("prompts/likes.txt")})
 
         with st.spinner("🤖 Twinbot is typing now..."):
             try:
@@ -104,7 +104,7 @@ def run():
     if st.session_state.interview_phase == "likes":
         if any(LIKE_END in m["content"] for m in st.session_state.messages if m["role"] == "assistant"):
             st.session_state.messages_likes = st.session_state.messages.copy()
-            st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/preferences.txt")}]
+            st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/dislikes.txt")}]
             st.session_state.chat_history.append(("🤖", "Now let’s move on to things you dislike."))
             st.session_state.interview_phase = "dislikes"
             st.rerun()
