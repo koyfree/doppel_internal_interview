@@ -40,7 +40,7 @@ def run():
 
         st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/preferences.txt")}]
         st.session_state.intro_shown = True
-        st.stop()
+        st.rerun()
 
     # 채팅 출력
     for msg in st.session_state.messages:
