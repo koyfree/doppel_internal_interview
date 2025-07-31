@@ -105,7 +105,7 @@ def run():
         if any(LIKE_END in m["content"] for m in st.session_state.messages if m["role"] == "assistant"):
             st.session_state.messages_likes = st.session_state.messages.copy()
             st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/preferences.txt")}]
-            st.session_state.chat_history.append(("🤖", "Thanks for sharing! Now let’s move on to things you dislike."))
+            st.session_state.chat_history.append(("🤖", "Now let’s move on to things you dislike."))
             st.session_state.interview_phase = "dislikes"
             st.rerun()
 
