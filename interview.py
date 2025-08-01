@@ -16,34 +16,12 @@ def run():
     client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
     if "interview_phase" not in st.session_state:
-        with st.form("start_form"):
-            phase_choice = st.radio(
-                "어떤 항목부터 인터뷰할까요?",
-                options=["좋아하는 것", "싫어하는 것", "주간 활동"],
-                index=0
-            )
-            submitted = st.form_submit_button("시작하기")
-
-        if submitted:
-            if phase_choice == "좋아하는 것":
-                st.session_state.interview_phase = "likes"
-                st.session_state.messages = []
-                st.session_state.intro_done = False
-            elif phase_choice == "싫어하는 것":
-                st.session_state.interview_phase = "dislikes"
-                st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/dislikes.txt")}]
-                st.session_state.intro_done = True
-            else:  # 주간 활동
-                st.session_state.interview_phase = "weekly"
-                st.session_state.messages = [{"role": "system", "content": load_prompt("prompts/weekly.txt")}]
-                st.session_state.intro_done = True
-
-            st.session_state.chat_history = []
-            st.session_state.awaiting_response = False
-            st.session_state.pending_user_input = None
-            st.rerun()
-        else:
-            st.stop()
+        st.session_state.interview_phase = "likes"
+        st.session_state.messages = []
+        st.session_state.chat_history = []
+        st.session_state.intro_done = False
+        st.session_state.awaiting_response = False
+        st.session_state.pending_user_input = None
 
     # ✅ 인트로 메시지 + GPT 첫 응답
     if st.session_state.interview_phase == "likes" and not st.session_state.intro_done:
