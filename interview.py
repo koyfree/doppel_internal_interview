@@ -165,7 +165,8 @@ def run():
         ]:
             st.subheader(f"🔹 {label}")
             for msg in st.session_state.get(key, []):
-                role = "🧍‍♀️" if msg["role"] == "user" else "🤖"
-                st.markdown(f"{role} **{msg['role']}**: {msg['content']}")
+                if msg["role"] in ["user", "assistant"]:  # ✅ system 메시지 제외
+                    role_icon = "🧍‍♀️" if msg["role"] == "user" else "🤖"
+                    st.markdown(f"{role_icon} **{msg['role']}**: {msg['content']}")
 
         st.stop()
