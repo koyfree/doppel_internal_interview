@@ -4,7 +4,7 @@ import time
 
 LIKE_END = "Thank you for sharing all these details."
 DISLIKE_END = "Thank you so much for your detailed answers. This really helps Twinbot understand you better!"
-WEEKLY_END = "Now I have a good picture of your past week."
+WEEKLY_END = "I now have a good picture of your week."
 
 def load_prompt(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
