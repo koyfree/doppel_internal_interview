@@ -186,6 +186,7 @@ def run():
 
     elif st.session_state.interview_phase == "done":
         save_to_sheet()  # 🔥 대화 종료 시 자동 저장 실행
+        st.write("🔑 키 확인:", st.secrets["google"].get("private_key", "❌ private_key 없음"))
 
         with st.chat_message("assistant"):
             st.markdown("""
