@@ -1,6 +1,8 @@
 import streamlit as st
 from openai import OpenAI
 import time
+from oauth2client.service_account import ServiceAccountCredentials
+import gspread
 
 LIKE_END = "Thank you for sharing all these details."
 DISLIKE_END = "Thank you so much for your detailed answers. This really helps Twinbot understand you better!"
@@ -9,6 +11,60 @@ WEEKLY_END = "I now have a good picture of your week."
 def load_prompt(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         return f.read()
+
+from google.oauth2.service_account import Credentials
+import gspread
+
+def save_to_sheet():
+    try:
+        # 인증 및 시트 열기
+        creds = Credentials.from_service_account_info(st.secrets["google"])
+        client = gspread.authorize(creds)
+        sheet = client.open("internal_knowledge").sheet1
+
+        # 🔁 헤더에서 열 이름 기준으로 인덱스 찾기
+        headers = sheet.row_values(1)
+        name_col_index = headers.index("Name") + 1  # 사용자 ID가 저장된 열
+        id_column = sheet.col_values(name_col_index)
+
+        # 🧍 사용자 ID 확인 및 행 찾기
+        user_id = st.session_state.get("user_id", None)
+        if user_id is None:
+            st.warning("❗ 사용자 ID가 설정되지 않았습니다.")
+            return
+
+        if user_id not in id_column:
+            st.warning(f"❗ ID '{user_id}'를 시트에서 찾을 수 없습니다.")
+            return
+
+        row_idx = id_column.index(user_id) + 1
+
+        # 💬 메시지 압축
+        def extract_content(key):
+            messages = st.session_state.get(key, [])
+            return "\n".join([
+                f"{'👤' if m['role'] == 'user' else '🤖'} {m['content']}"
+                for m in messages if m["role"] in ["user", "assistant"]
+            ])
+
+        likes_text = extract_content("messages_likes")
+        dislikes_text = extract_content("messages_dislikes")
+        weekly_text = extract_content("messages_weekly")
+
+        # ✍️ 각 열 위치 찾기
+        love_col = headers.index("top5_love") + 1
+        hate_col = headers.index("top5_hate") + 1
+        weekly_col = headers.index("weekly_activities") + 1
+
+        # 📤 시트에 쓰기
+        sheet.update_cell(row_idx, love_col, likes_text)
+        sheet.update_cell(row_idx, hate_col, dislikes_text)
+        sheet.update_cell(row_idx, weekly_col, weekly_text)
+
+        st.success("✅ 인터뷰 결과가 Google Sheet에 저장되었습니다!")
+
+    except Exception as e:
+        st.error(f"❌ Google Sheet 저장 중 오류 발생: {e}")
 
 def run():
     st.title("🧠 AITwinBot 인터뷰")
@@ -129,22 +185,11 @@ def run():
             st.rerun()
 
     elif st.session_state.interview_phase == "done":
+        save_to_sheet()  # 🔥 대화 종료 시 자동 저장 실행
+
         with st.chat_message("assistant"):
             st.markdown("""
             이제 도플갱어 챗봇과의 대화를 시작할 수 있어요!  
             👉 [다음 실험 단계로 이동](#)
             """)
-
-        st.header("📆 인터뷰 결과 미리보기")
-        for label, key in [
-            ("좋아하는 것", "messages_likes"),
-            ("싫어하는 것", "messages_dislikes"),
-            ("주간 활동", "messages_weekly")
-        ]:
-            st.subheader(f"🔹 {label}")
-            for msg in st.session_state.get(key, []):
-                if msg["role"] in ["user", "assistant"]:  # ✅ system 메시지 제외
-                    role_icon = "🧍‍♀️" if msg["role"] == "user" else "🤖"
-                    st.markdown(f"{role_icon} **{msg['role']}**: {msg['content']}")
-
         st.stop()
