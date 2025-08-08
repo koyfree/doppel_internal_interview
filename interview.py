@@ -1,7 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 import time
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import gspread
 
 LIKE_END = "Thank you for sharing all these details."
