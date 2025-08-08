@@ -18,7 +18,10 @@ import gspread
 def save_to_sheet():
     try:
         # 인증 및 시트 열기
-        creds = Credentials.from_service_account_info(st.secrets["google"])
+        creds = service_account.Credentials.from_service_account_info(
+    info=dict(st.secrets["google"]),  # 명시적으로 dict 처리
+    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+)
         client = gspread.authorize(creds)
         sheet = client.open("internal_knowledge").sheet1
 
