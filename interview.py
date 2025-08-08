@@ -176,8 +176,8 @@ def run():
 
     elif st.session_state.interview_phase == "dislikes":
         if any(DISLIKE_END in m["content"] for m in st.session_state.messages if m["role"] == "assistant"):
-            st.session_state.messages_dislikes = [{"role": "assistant", "content": "Now let’s move on to things you dislike. Ready?"}] 
-            + st.session_state.messages.copy()
+            st.session_state.messages_dislikes = ([{"role": "assistant", "content": "Now let’s move on to things you dislike. Ready?"}] 
+            + st.session_state.messages.copy())
             st.session_state.interview_phase = "next_button"
             st.rerun()
 
@@ -190,8 +190,8 @@ def run():
 
     elif st.session_state.interview_phase == "weekly":
         if any(WEEKLY_END in m["content"] for m in st.session_state.messages if m["role"] == "assistant"):
-            st.session_state.messages_weekly = [{"role": "assistant", "content": "Great! Let’s talk about your weekly activities. Good to go?"}] 
-            + st.session_state.messages.copy()
+            st.session_state.messages_weekly = ([{"role": "assistant", "content": "Great! Let’s talk about your weekly activities. Good to go?"}] 
+            + st.session_state.messages.copy())
             st.session_state.interview_phase = "done"
             st.rerun()
 
