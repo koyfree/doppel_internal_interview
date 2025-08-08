@@ -2,3 +2,5 @@ streamlit
 openai
 anthropic
 google-generativeai
+gspread
+google-auth
