@@ -19,12 +19,15 @@ def save_to_sheet():
     try:
         # 인증 및 시트 열기
         info = dict(st.secrets["google"])
+        st.write("🔎 원본 private_key:", repr(info["private_key"]))  # before replace
+
         info["private_key"] = info["private_key"].replace("\\n", "\n")
-        
+        st.write("✅ 수정된 private_key:", repr(info["private_key"]))  # after replace
+
         creds = service_account.Credentials.from_service_account_info(
-            info,
-            scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-            )
+    info,
+    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+)
         client = gspread.authorize(creds)
         sheet = client.open("internal_knowledge").sheet1
 
