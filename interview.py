@@ -52,7 +52,7 @@ def save_to_sheet():
         def extract_content(key):
             messages = st.session_state.get(key, [])
             return "\n".join([
-                f"{'👤 user: ' if m['role'] == 'user' else '🤖 assistant: '} {m['content']}"
+                f"{'👤 user:' if m['role'] == 'user' else '🤖 assistant:'} {m['content']}"
                 for m in messages if m["role"] in ["user", "assistant"]
             ])
 
@@ -176,7 +176,8 @@ def run():
 
     elif st.session_state.interview_phase == "dislikes":
         if any(DISLIKE_END in m["content"] for m in st.session_state.messages if m["role"] == "assistant"):
-            st.session_state.messages_dislikes = st.session_state.messages.copy()
+            st.session_state.messages_dislikes = [{"role": "assistant", "content": "Now let’s move on to things you dislike. Ready?"}] 
+            + st.session_state.messages.copy()
             st.session_state.interview_phase = "next_button"
             st.rerun()
 
@@ -189,13 +190,14 @@ def run():
 
     elif st.session_state.interview_phase == "weekly":
         if any(WEEKLY_END in m["content"] for m in st.session_state.messages if m["role"] == "assistant"):
-            st.session_state.messages_weekly = st.session_state.messages.copy()
+            st.session_state.messages_weekly = [{"role": "assistant", "content": "Great! Let’s talk about your weekly activities. Good to go?"}] 
+            + st.session_state.messages.copy()
             st.session_state.interview_phase = "done"
             st.rerun()
 
     elif st.session_state.interview_phase == "done":
         save_to_sheet()  # 🔥 대화 종료 시 자동 저장 실행
-        st.write("🔑 키 확인:", st.secrets["google"].get("private_key", "❌ private_key 없음"))
+        # st.write("🔑 키 확인:", st.secrets["google"].get("private_key", "❌ private_key 없음"))
 
         with st.chat_message("assistant"):
             st.markdown("""
