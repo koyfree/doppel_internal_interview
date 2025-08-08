@@ -19,10 +19,10 @@ def save_to_sheet():
     try:
         # 인증 및 시트 열기
         info = dict(st.secrets["google"])
-        st.write("🔎 원본 private_key:", repr(info["private_key"]))  # before replace
+      #  st.write("🔎 원본 private_key:", repr(info["private_key"]))  # before replace
 
         info["private_key"] = info["private_key"].replace("\\n", "\n")
-        st.write("✅ 수정된 private_key:", repr(info["private_key"]))  # after replace
+      #  st.write("✅ 수정된 private_key:", repr(info["private_key"]))  # after replace
 
         creds = service_account.Credentials.from_service_account_info(
     info,
@@ -52,7 +52,7 @@ def save_to_sheet():
         def extract_content(key):
             messages = st.session_state.get(key, [])
             return "\n".join([
-                f"{'👤' if m['role'] == 'user' else '🤖'} {m['content']}"
+                f"{'👤 user: ' if m['role'] == 'user' else '🤖 assistant: '} {m['content']}"
                 for m in messages if m["role"] in ["user", "assistant"]
             ])
 
@@ -70,7 +70,7 @@ def save_to_sheet():
         sheet.update_cell(row_idx, hate_col, dislikes_text)
         sheet.update_cell(row_idx, weekly_col, weekly_text)
 
-        st.success("✅ 인터뷰 결과가 Google Sheet에 저장되었습니다!")
+       # st.success("✅ 인터뷰 결과가 Google Sheet에 저장되었습니다!")
 
     except Exception as e:
         st.error(f"❌ Google Sheet 저장 중 오류 발생: {e}")
