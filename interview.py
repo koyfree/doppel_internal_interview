@@ -202,6 +202,6 @@ def run():
         with st.chat_message("assistant"):
             st.markdown("""
             이제 도플갱어 챗봇과의 대화를 시작할 수 있어요!  
-            👉 [다음 실험 단계로 이동]("https://doppelapptest-ueotcsyeqkpgncjyqcddfk.streamlit.app/")
+            👉 [다음 실험 단계로 이동](https://doppelapptest-ueotcsyeqkpgncjyqcddfk.streamlit.app/)
             """)
         st.stop()
