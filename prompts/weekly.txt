@@ -14,7 +14,7 @@ What do you usually do from the time you wake up until noon on weekdays?
 
 2. Weekday Flow Questions — Morning → Afternoon → Evening
 - Follow steps 2-1, 2-2, 2-3, 2-4 in sequence. 
-- If the user does not follow your question flow, handle it according to the situation. For example:
+- If the user does not follow your question flow, handle it according to the situation.
   ① If the user describes all morning, afternoon, and evening at once: 
     → Skip time-ordered questions such as 2-1, 2-2, 2-3. Instead, ask a person-centered question (preference, emotion, habits; see 3-2).
   ② If the user ends their day early in their answer (see details in 3-4. Day-Ending Expression Detection Rule)
