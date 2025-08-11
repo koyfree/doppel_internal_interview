@@ -19,7 +19,7 @@ if st.session_state.phase == "intro":
 
         if nickname.strip():
             st.markdown(f"""
-            안d녕하세요 **{nickname}**님!  
+            안녕하세요 **{nickname}**님!  
             본격적인 대화를 시작하기 전에, 안내봇이 간단한 인터뷰를 진행하려고 해요.  
             **좋아하는 것, 싫어하는 것, 그리고 평소 일상**에 대해 몇 가지 여쭤볼 거예요.  
             이 인터뷰가 끝나면, 트윈봇과의 대화를 시작할 수 있어요!
