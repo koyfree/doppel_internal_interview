@@ -92,7 +92,7 @@ def run():
     if st.session_state.interview_phase == "likes" and not st.session_state.intro_done:
         nickname = st.session_state.get("nickname", "there")
         intro_messages = [
-            f"Nice to meet you, {nickname}!",
+            f"Nice to meet you, {nickname}! I’m QueryBot for rich, detailed answers — for you and Twinbot.",
             "Great, now I’d love to know more about your preferences!",
             "There are no specific rules, so feel free to write casually, just like you’re chatting with a friend.",
             "Anything is fine—adjectives, objects, people, food, behaviors, hobbies, etc. It would be great if you could be as specific as possible!",
@@ -106,7 +106,7 @@ def run():
 
         st.session_state.messages.append({"role": "system", "content": load_prompt("prompts/likes.txt")})
 
-        with st.spinner("🤖 Twinbot is typing now..."):
+        with st.spinner("🤖 QueryBot is typing now..."):
             try:
                 response = client.chat.completions.create(
                     model="gpt-4.1",
