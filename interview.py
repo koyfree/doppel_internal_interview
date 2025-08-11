@@ -196,12 +196,16 @@ def run():
             st.rerun()
 
     elif st.session_state.interview_phase == "done":
+        with st.chat_message("assistant"):
+            st.markdown("""
+            이제 트윈봇과의 대화를 시작할 수 있어요!
+            아래 링크가 나타날 때까지 잠시만 기다려 주세요. 
+            """)
         save_to_sheet()  # 🔥 대화 종료 시 자동 저장 실행
         # st.write("🔑 키 확인:", st.secrets["google"].get("private_key", "❌ private_key 없음"))
 
         with st.chat_message("assistant"):
             st.markdown("""
-            이제 도플갱어 챗봇과의 대화를 시작할 수 있어요!  
-            👉 [다음 실험 단계로 이동](https://doppelapptest-ueotcsyeqkpgncjyqcddfk.streamlit.app/)
+            👉 [트윈봇과 대화 시작하기](https://doppelapptest-ueotcsyeqkpgncjyqcddfk.streamlit.app/)
             """)
         st.stop()
