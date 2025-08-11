@@ -11,7 +11,7 @@ if st.session_state.phase == "intro":
     st.title("AITwinBot 실험 시작")
 
     # 1. ID 입력
-    user_id = st.text_input("고유 ID (숫자 5자리)", key="user_id_input")
+    user_id = st.text_input("고유 ID (숫자 5자리)를 입력하고 enter 키를 눌러 주세요.", key="user_id_input")
 
     # 2. 닉네임 입력
     if user_id.strip().isdigit() and len(user_id.strip()) == 5:
@@ -19,10 +19,11 @@ if st.session_state.phase == "intro":
 
         if nickname.strip():
             st.markdown(f"""
-            와 안녕하세요 **{nickname}**님!  
+            안녕하세요 **{nickname}**님!  
             본격적인 대화를 시작하기 전에, 안내봇이 간단한 인터뷰를 진행하려고 해요.  
             **좋아하는 것, 싫어하는 것, 그리고 평소 일상**에 대해 몇 가지 여쭤볼 거예요.  
-            이 인터뷰가 끝나면, 도플갱어 챗봇과의 대화를 시작할 수 있어요!  
+            이 인터뷰가 끝나면, 트윈봇과의 대화를 시작할 수 있어요!
+            대화는 영어로 진행됩니다.
             준비되셨다면 아래 버튼을 눌러주세요.
             """)
 
