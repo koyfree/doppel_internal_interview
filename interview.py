@@ -93,7 +93,7 @@ def run():
         nickname = st.session_state.get("nickname", "there")
         intro_messages = [
             f"Nice to meet you, {nickname}! I’m QueryBot for rich, detailed answers — for you and Twinbot.",
-            "Great, now I’d love to know more about your preferences!",
+            "Great! First of all, I’d love to know more about your preferences!",
             "There are no specific rules, so feel free to write casually, just like you’re chatting with a friend. Anything is fine—adjectives, objects, people, food, behaviors, hobbies, etc.", 
             "It would be great if you could be as specific as possible! For example, instead of saying ‘I like music,’ say something like ‘I love rock ballads.’ The more details you give, the better Twinbot can understand you.",
             "Alright, let's get started!"
