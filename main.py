@@ -2,7 +2,7 @@
 import streamlit as st
 import interview
 
-st.set_page_config(page_title="AITwinBot 시작", page_icon="🤖")
+st.set_page_config(page_title="QueryBot과의 인터뷰", page_icon="🤖")
 
 if "phase" not in st.session_state:
     st.session_state.phase = "intro"
