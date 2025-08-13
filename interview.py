@@ -76,7 +76,7 @@ def save_to_sheet():
         st.error(f"❌ Google Sheet 저장 중 오류 발생: {e}")
 
 def run():
-    st.title("🧠 QueryBot 인터뷰")
+    st.title("🧠 QueryBot과의 인터뷰")
 
     client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
