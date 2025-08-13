@@ -8,14 +8,14 @@ if "phase" not in st.session_state:
     st.session_state.phase = "intro"
 
 if st.session_state.phase == "intro":
-    st.title("AITwinBot 실험 시작")
+    st.title("QueryBot과의 인터뷰")
 
     # 1. ID 입력
     user_id = st.text_input("고유 ID (숫자 5자리)를 입력하고 enter 키를 눌러 주세요.", key="user_id_input")
 
     # 2. 닉네임 입력
     if user_id.strip().isdigit() and len(user_id.strip()) == 5:
-        nickname = st.text_input("챗봇이 당신을 뭐라고 부르면 좋을까요? 예: 카리나님, 윈터님 등. 이 별명은 저장되지 않습니다 :)", key="nickname_input")
+        nickname = st.text_input("쿼리봇이 당신을 뭐라고 부르면 좋을까요? 예: 카리나님, 윈터님 등. 이 별명은 저장되지 않습니다 :)", key="nickname_input")
 
         if nickname.strip():
             st.markdown(f"""
